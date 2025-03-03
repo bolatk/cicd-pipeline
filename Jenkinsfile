@@ -29,8 +29,8 @@ pipeline {
       steps {
         script {
           docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_credentials') {
-            docker.image("$DOCKER_IMAGE:${env.BUILD_NUMBER}").push()
-            docker.image("$DOCKER_IMAGE:${env.BUILD_NUMBER}").push('latest')
+            docker.image("$DOCKER_IMAGE:${dockerTag}").push()
+            docker.image("$DOCKER_IMAGE:latest").push('latest')
           }
         }
 
