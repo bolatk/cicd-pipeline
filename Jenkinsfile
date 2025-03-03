@@ -15,13 +15,7 @@ pipeline {
 
     stage('Docker Image Build') {
       steps {
-        script {
-          def dockerImageTag = "${env.BUILD_NUMBER}"
-          sh """
-          docker build -t ${DOCKER_IMAGE}:${dockerImageTag} .
-          """
-        }
-
+        sh 'docker build -t $DOCKER_IMAGE:$DOCKER_IMAGE_TAG .'
       }
     }
 
@@ -29,8 +23,8 @@ pipeline {
       steps {
         script {
           docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_credentials') {
-            docker.image("$DOCKER_IMAGE:${dockerImageTag}").push()
-            docker.image("$DOCKER_IMAGE:latest").push('latest')
+            docker.image("$DOCKER_IMAGE:$DOCKER_IMAGE_TAG").push()
+            docker.image("$DOCKER_IMAGE:$DOCKER_IMAGE_TAG").push('latest')
           }
         }
 
@@ -40,5 +34,6 @@ pipeline {
   }
   environment {
     DOCKER_IMAGE = 'langrenn/cicd-pipeline-image'
+    DOCKER_IMAGE_TAG = '${env.BUILD_NUMBER}'
   }
 }
