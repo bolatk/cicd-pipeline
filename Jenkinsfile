@@ -28,9 +28,11 @@ pipeline {
     stage('Docker Image Push') {
       steps {
         script {
-          def dockerImageTag = "${env.BUILD_NUMBER}" docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_credentials') {
-            docker.image("${DOCKER_IMAGE}:${dockerImageTag}").push()
+          def dockerImageTag = "${env.BUILD_NUMBER}";
 
+
+          docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_credentials') {
+            docker.image("${DOCKER_IMAGE}:${dockerImageTag}").push()
           }
         }
 
