@@ -34,6 +34,6 @@ pipeline {
   }
   environment {
     DOCKER_IMAGE = 'langrenn/cicd-pipeline-image'
-    DOCKER_IMAGE_TAG = '${env.BUILD_NUMBER}'
+    DOCKER_IMAGE_TAG = '$env.BUILD_NUMBER'
   }
 }
