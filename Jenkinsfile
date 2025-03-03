@@ -16,7 +16,7 @@ pipeline {
     stage('Docker Image Build') {
       steps {
         script {
-          sh """
+          def validBuildVersion = BUILD_VERSION.replaceAll("[^a-zA-Z0-9_.-]", "_") sh """
           docker build -t ${DOCKER_IMAGE}:${BUILD_VERSION} .
           """
         }
@@ -28,7 +28,7 @@ pipeline {
       steps {
         script {
           docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_credentials') {
-            docker.image("${DOCKER_IMAGE}:${BUILD_VERSION}").push()
+            docker.image("${DOCKER_IMAGE}:${validBuildVersion}").push()
             docker.image("${DOCKER_IMAGE}:latest").push('latest')
           }
         }
