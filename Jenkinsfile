@@ -30,7 +30,7 @@ pipeline {
         script {
           docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_credentials') {
             docker.image("$DOCKER_IMAGE:${env.BUILD_NUMBER}").push()
-            docker.image("$DOCKER_IMAGE:latest").push('latest')
+            docker.image("$DOCKER_IMAGE:${env.BUILD_NUMBER}").push('latest')
           }
         }
 
