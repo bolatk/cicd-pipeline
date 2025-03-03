@@ -28,8 +28,8 @@ pipeline {
       steps {
         script {
           docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_credentials') {
-            docker.image("${DOCKER_IMAGE}:20").push()
-            docker.image("${DOCKER_IMAGE}:latest").push('latest')
+            docker.image("${DOCKER_IMAGE}:${BUILD_VERSION}").push()
+
           }
         }
 
