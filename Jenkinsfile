@@ -15,7 +15,12 @@ pipeline {
 
     stage('Docker Image Build') {
       steps {
-        sh 'docker build -t $DOCKER_IMAGE:$BUILD_VERSION .'
+        script {
+          sh """
+          docker build -t ${DOCKER_IMAGE}:${BUILD_VERSION} .
+          """
+        }
+
       }
     }
 
