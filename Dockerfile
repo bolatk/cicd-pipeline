@@ -1,5 +1,5 @@
-FROM node:7.8.0
+FROM node:18
 WORKDIR /opt
 ADD . /opt
-RUN npm install
-ENTRYPOINT npm run start
+RUN npm install -g npm@latest
+ENTRYPOINT ["npm" "run" "start"]
