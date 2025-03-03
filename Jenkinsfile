@@ -15,7 +15,13 @@ pipeline {
 
     stage('Docker Image Build') {
       steps {
-        sh 'docker build -t $DOCKER_IMAGE:${env.BUILD_NUMBER} .'
+        script {
+          def dockerImageTag = "${env.BUILD_NUMBER}"
+          sh """
+          docker build -t ${DOCKER_IMAGE}:${dockerImageTag} .
+          """
+        }
+
       }
     }
 
